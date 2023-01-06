@@ -1,7 +1,18 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from 'redux/selectors';
+import { setFilter } from 'redux/filterSlice';
 import { InputFilter } from './Filter.styled';
 
-export const Filter = ({ value, onChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const value = useSelector(getFilter);
+  const changeFilter = evt => {
+    dispatch(setFilter(evt.currentTarget.value));
+  };
+
+  // const visibleContacts = contacts.filter(contact =>
+  //   contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+  // );
   return (
     <>
       <label>
@@ -9,14 +20,9 @@ export const Filter = ({ value, onChange }) => {
         <InputFilter
           type="text"
           value={value}
-          onChange={onChange}
+          onChange={changeFilter}
         ></InputFilter>
       </label>
     </>
   );
-};
-
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };

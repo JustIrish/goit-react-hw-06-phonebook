@@ -1,6 +1,9 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 import { nanoid } from 'nanoid';
+import toast from 'react-hot-toast';
 import {
   FormStyled,
   LabelStyled,
@@ -8,7 +11,9 @@ import {
   BtnStyled,
 } from './ContactForm.styled';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -33,7 +38,15 @@ export const ContactForm = ({ onSubmit }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
 
-    onSubmit(name, number);
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.trim().toLowerCase()
+      )
+    )
+      return toast.error(`${name} is already in contacts.`);
+
+    const contact = { name, number };
+    dispatch(addContact(contact));
     reset();
   };
 
@@ -69,8 +82,4 @@ export const ContactForm = ({ onSubmit }) => {
       <BtnStyled type="submit">Add contact</BtnStyled>
     </FormStyled>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };

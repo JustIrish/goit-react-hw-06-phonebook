@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/action';
+import { deleteContact } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import {
   ContactItem,
@@ -9,7 +9,7 @@ import {
   ContactMarker,
 } from './ContactListItem.styled';
 
-export const ContactListItem = ({ id, name, number }) => {
+export const ContactListItem = ({ contact: { id, name, number } }) => {
   const dispatch = useDispatch();
 
   return (
