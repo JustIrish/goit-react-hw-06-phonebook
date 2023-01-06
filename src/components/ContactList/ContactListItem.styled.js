@@ -29,17 +29,20 @@ export const ContactText = styled.p`
 `;
 
 export const BtnDelete = styled.button`
-  width: 60px;
+  width: 100px;
   font-size: 14px;
   border-radius: 4px;
   border: 0.5px solid #000;
   background-color: transparent;
-  transition: backround-color 250ms linear;
+  transition-property: background-color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: linear;
   cursor: pointer;
 
   &:hover,
   &:focus {
     background-color: #408dadb5;
     border-color: transparent;
+    box-shadow: 0 5px 5px rgb(0 0 0 / 20%);
   }
 `;

@@ -6,13 +6,11 @@ import { InputFilter } from './Filter.styled';
 export const Filter = () => {
   const dispatch = useDispatch();
   const value = useSelector(getFilter);
+
   const changeFilter = evt => {
-    dispatch(setFilter(evt.currentTarget.value));
+    dispatch(setFilter(evt.currentTarget.value.trim()));
   };
 
-  // const visibleContacts = contacts.filter(contact =>
-  //   contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-  // );
   return (
     <>
       <label>
